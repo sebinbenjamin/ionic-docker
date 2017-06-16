@@ -1,0 +1,20 @@
+version: '2'
+services:
+  ionic_prod_release:
+    mem_limit: 2048m
+    cpu_shares: 512
+    volumes:
+    - $PWD/www:/usr/src/app/www
+    build:
+      context: .
+      dockerfile: dockerfile
+  mypay_ui_nginx:
+    image: nginx:alpine
+    mem_limit: 2048m
+    cpu_shares: 512
+    ports:
+    - 8079:80
+    volumes:
+    - $PWD/www:/usr/share/nginx/html
+    depends_on:
+    - ionic_prod_release    
